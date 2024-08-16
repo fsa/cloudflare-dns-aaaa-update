@@ -6,7 +6,6 @@ IPV6_PREFIX=`ip -6 addr show scope global primary -deprecated -mngtmpaddr to 200
 NEW_IPV6=${IPV6_PREFIX}:${RECORD_VALUE}
 
 echo "Новый адрес: $NEW_IPV6"
-exit
 
 # Данные для запроса
 API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID"
