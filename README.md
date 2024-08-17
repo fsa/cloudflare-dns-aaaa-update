@@ -19,7 +19,7 @@ INTERFACE=eth0
 ```ini
 DOMAIN=example.org
 RECORD=my_router.example.org
-RECORD_VALUE=1
+RECORD_VALUE=:1
 ```
 
 Для получения доступа на первом шаге необходимо получить токен доступа для Cloudflare и указать его в `.env`.
