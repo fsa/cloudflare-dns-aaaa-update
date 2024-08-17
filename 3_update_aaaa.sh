@@ -2,11 +2,11 @@
 
 if [ -f ".env" ]; then source .env; else exit 1; fi
 
-IPV6_PREFIX=`ip -6 addr show scope global primary -deprecated -mngtmpaddr to 2000::/3 | grep -oP '(?<=inet6\s)([0-9a-f]{1,4}:){4}' | sort -u | head -n 1`
+IPV6_PREFIX=`ip -6 addr show scope global primary -deprecated -mngtmpaddr to 2000::/3 dev $INTERFACE | grep inet6 | head -n 1 | tr -s ' ' '\t' | cut -f3 | cut -d'/' -f1 | cut -d':' -f1-4`
 
 if [ -f old_prefix.txt ]; then
     OLD_PREFIX=`cat old_prefix.txt`
-    if [ "$IPV6_PREFIX" == "$OLD_PREFIX" ]; then echo "Адрес не изменился."; exit; fi
+    if [ "$IPV6_PREFIX" == "$OLD_PREFIX" ]; then echo "Префикс не изменился: $IPV6_PREFIX"; exit; fi
 fi
 
 NEW_IPV6=${IPV6_PREFIX}:${RECORD_VALUE}
