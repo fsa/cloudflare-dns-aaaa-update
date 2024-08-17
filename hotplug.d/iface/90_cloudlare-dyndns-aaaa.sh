@@ -2,7 +2,6 @@
 
 INTERFACE_LAN=br-lan
 
-DOMAIN=example.org
 RECORD=my_router.example.org
 RECORD_VALUE=:1
 
