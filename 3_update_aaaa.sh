@@ -4,6 +4,12 @@ if [ -f ".env" ]; then source .env; else exit 1; fi
 
 IPV6_PREFIX=`ip -6 addr show scope global primary -deprecated -mngtmpaddr to 2000::/3 dev $INTERFACE | grep inet6 | head -n 1 | tr -s ' ' '\t' | cut -f3 | cut -d'/' -f1 | cut -d':' -f1-4`
 
+# Проверка, что интерфейс существует и адрес получен
+if [ -z "$IPV6_PREFIX" ]; then
+    echo "Ошибка определения адреса, возможно неверно указан интерфейс"
+    exit 1
+fi
+
 NEW_IPV6=${IPV6_PREFIX}:${RECORD_VALUE}
 
 OLD_IPV6=$(dig +short AAAA $RECORD)
